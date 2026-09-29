@@ -1,0 +1,100 @@
+<title>RUH-tavle Campus Diakonhjemmet</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..125,400..800&display=swap">
+<style>
+/* Layout: 16:9-tavle uten scroll. Venstre: nøkkeltall, åpen/lukket, månedsgraf. Høyre: åpne saker (roterer) og topp firma/fokus. Mørk AF-look med gult for åpne saker. */
+:root{--bg:#262626;--card:#303030;--fg:#f2f2ee;--mute:#b0b0a8;--line:#484845;--af:#FFCD00;--afdark:#464646;--open:#FFCD00;--closed:#9d9d96;--track:#3f3f3c;--warn:#ff8a4c;--font:'Archivo',system-ui,-apple-system,'Segoe UI',sans-serif;color-scheme:dark}
+*{box-sizing:border-box}
+html{font-size:min(.8334vw,1.4815vh);height:100%}
+body{margin:0;height:100%;overflow:hidden;background:var(--bg);color:var(--fg);font-family:var(--font);font-size:1.15rem;line-height:1.3;display:flex;flex-direction:column}
+header{background:var(--af);color:#262626;border-bottom:.4rem solid var(--afdark);display:flex;align-items:center;gap:1.2rem;padding:.7rem 1.6rem;flex:none}
+header img{width:4rem;height:4rem;display:block}
+header h1{margin:0;font-size:2.2rem;font-weight:800;letter-spacing:-.01em}
+header p{margin:0;font-size:1.1rem;opacity:.8}
+header .st{margin-left:auto;text-align:right;font-size:1.1rem;font-variant-numeric:tabular-nums}
+header .st b{font-size:1.6rem;display:block}
+main{flex:1;min-height:0;display:grid;grid-template-columns:37fr 63fr;gap:1.2rem;padding:1.2rem 1.6rem}
+.col{display:flex;flex-direction:column;gap:1.2rem;min-height:0;min-width:0}
+.card{background:var(--card);border:1px solid var(--line);padding:1rem 1.2rem;min-width:0;min-height:0;display:flex;flex-direction:column}
+h2{margin:0 0 .8rem;font-size:1.05rem;letter-spacing:.1em;text-transform:uppercase;font-weight:700;color:var(--mute);flex:none}
+h2 b{color:var(--af)}
+.kp{display:grid;grid-template-columns:1.25fr 1fr 1fr;gap:1.2rem;flex:none}
+.k{background:var(--card);border:1px solid var(--line);border-top:.35rem solid var(--af);padding:.8rem 1.2rem}
+.k.h{background:var(--afdark);grid-row:span 2;display:flex;flex-direction:column;justify-content:center}
+.k .l{font-size:1rem;letter-spacing:.09em;text-transform:uppercase;color:var(--mute);font-weight:600}
+.k .v{font-size:3.6rem;font-weight:800;line-height:1.05;font-variant-numeric:tabular-nums}
+.k.h .v{font-size:9rem;color:var(--af);line-height:1}
+.k .s{font-size:1.05rem;color:var(--mute)}
+.stack{display:flex;height:3rem;background:var(--track);overflow:hidden;flex:none}
+.stack div{display:flex;align-items:center;padding-left:1rem;font-weight:700;font-size:1.3rem;white-space:nowrap}
+.stack .c{background:var(--closed);color:#1f1f1e}.stack .o{background:var(--open);color:#262626}
+.lg{display:flex;gap:1.6rem;margin-top:.6rem;color:var(--mute);font-size:1.05rem}
+.lg i{display:inline-block;width:.9rem;height:.9rem;margin-right:.5rem}
+.chart{flex:1;min-height:0;display:flex}
+.chart svg{width:100%;height:100%}
+svg text{fill:var(--mute);font-family:var(--font);font-size:12px}
+table{border-collapse:collapse;width:100%;table-layout:fixed}
+th{background:var(--afdark);color:#fff;text-align:left;font-size:1rem;letter-spacing:.07em;text-transform:uppercase;padding:.5rem .7rem;white-space:nowrap}
+td{padding:.55rem .7rem;border-bottom:1px solid var(--line);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:1.25rem}
+td.n{font-weight:800;color:var(--af)}
+td.a{font-variant-numeric:tabular-nums}
+.rk{display:inline-block;width:.9rem;height:.9rem;border-radius:50%;margin-right:.5rem}
+.rk.Green{background:#3f9d5b}.rk.Yellow{background:#e0b400}.rk.Red{background:#d92d20}
+.late{color:var(--warn);font-weight:700}
+.pg{margin-top:auto;padding-top:.6rem;color:var(--mute);font-size:1rem;display:flex;justify-content:space-between;flex:none}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;flex:1;min-height:0}
+.bars{display:flex;flex-direction:column;gap:.5rem;flex:1;min-height:0;justify-content:space-around}
+.br{display:grid;grid-template-columns:minmax(8rem,38%) 1fr 3.4rem 5rem;gap:.8rem;align-items:center;font-size:1.15rem}
+.br .nm{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.br .t{display:flex;height:1.1rem;background:var(--track)}
+.br .t .c{background:var(--closed)}.br .t .o{background:var(--open)}
+.br .x{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.br .x.tot{font-weight:700}.br .x.op{color:var(--af);font-weight:700}.br .x.z{color:var(--mute);font-weight:400}
+</style>
+<header><img alt="AF Gruppen" src="__LOGO__"><div><h1>RUH-oversikt</h1><p>3047 Campus Diakonhjemmet · Rapport om uønsket hendelse</p></div><div class="st"><span>Oppdatert fra Dalux</span><b>__DATE__</b></div></header>
+<main>
+<div class="col">
+<div class="kp" id="kp"></div>
+<div class="card" style="flex:none"><h2>Åpne mot lukkede</h2><div id="split"></div><div class="lg"><span><i style="background:var(--closed)"></i>Lukket</span><span><i style="background:var(--open)"></i>Åpen</span></div></div>
+<div class="card" style="flex:1"><h2>Innmeldt per måned <span style="text-transform:none;letter-spacing:0;font-weight:400">siste 12 måneder</span></h2><div class="chart" id="month"></div></div>
+</div>
+<div class="col">
+<div class="card" style="flex:1.25"><h2>Åpne saker <b id="oc"></b></h2><table><colgroup><col style="width:13%"><col style="width:28%"><col style="width:17%"><col style="width:20%"><col style="width:11%"><col style="width:11%"></colgroup><thead><tr><th>Nr</th><th>Tittel</th><th>Firma</th><th>Fokusområde</th><th>Risiko</th><th>Åpen</th></tr></thead><tbody id="rows"></tbody></table><div class="pg"><span id="pg"></span><span>Sortert med eldste sak øverst</span></div></div>
+<div class="two">
+<div class="card"><h2>Firma <span style="text-transform:none;letter-spacing:0;font-weight:400">topp 5</span></h2><div class="bars" id="firma"></div></div>
+<div class="card"><h2>Fokusområde <span style="text-transform:none;letter-spacing:0;font-weight:400">topp 5</span></h2><div class="bars" id="fokus"></div></div>
+</div></div>
+</main>
+<script>
+const D=__DATA__;
+const $=id=>document.getElementById(id),esc=s=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const isO=d=>d.status!=='closed',today=new Date().toISOString().slice(0,10);
+D.forEach(d=>{if(/^\d{6,}$|^S\d{10,}$/.test(d.firma))d.firma='Ukjent'});
+const open=D.filter(isO),closed=D.filter(d=>!isO(d)),fmt=n=>n.toLocaleString('nb-NO');
+const dd=(a,b)=>Math.round((new Date(b)-new Date(a))/864e5);
+const cd=closed.filter(d=>d.lukket).map(d=>dd(d.opprettet,d.lukket)).sort((a,b)=>a-b),med=cd.length?cd[Math.floor(cd.length/2)]:0;
+const pct=Math.round(closed.length/D.length*100),overdue=open.filter(d=>d.frist&&d.frist<today).length;
+$('kp').innerHTML=`<div class="k h"><div class="l">Åpne saker</div><div class="v">${open.length}</div><div class="s">${overdue?overdue+' med utløpt frist':'ingen med utløpt frist'}</div></div>
+<div class="k"><div class="l">Lukkede</div><div class="v">${fmt(closed.length)}</div><div class="s">${pct} % av alle</div></div>
+<div class="k"><div class="l">Totalt RUH</div><div class="v">${fmt(D.length)}</div><div class="s">siden juni 2025</div></div>
+<div class="k" style="grid-column:span 2"><div class="l">Median behandlingstid</div><div class="v">${med} døgn</div><div class="s">fra innmelding til lukking</div></div>`;
+$('split').innerHTML=`<div class="stack"><div class="c" style="width:${closed.length/D.length*100}%">${fmt(closed.length)} lukket</div><div class="o" style="width:${open.length/D.length*100}%">${open.length/D.length>.07?open.length+' åpen':''}</div></div>`;
+function grp(key,n){const m={};D.forEach(d=>{const k=d[key]||'Ikke oppgitt';(m[k]=m[k]||{c:0,o:0})[isO(d)?'o':'c']++});return Object.entries(m).sort((x,y)=>(y[1].c+y[1].o)-(x[1].c+x[1].o)).slice(0,n)}
+function bars(id,key,n){const a=grp(key,n),mx=Math.max(...a.map(x=>x[1].c+x[1].o));
+ $(id).innerHTML=a.map(([k,v])=>`<div class="br"><div class="nm">${esc(k)}</div><div><div class="t" style="width:${(v.c+v.o)/mx*100}%"><div class="c" style="flex:${v.c}"></div><div class="o" style="flex:${v.o}"></div></div></div><div class="x tot">${v.c+v.o}</div><div class="x op${v.o?'':' z'}">${v.o?v.o+' åpne':'–'}</div></div>`).join('')}
+bars('firma','firma',5);bars('fokus','fokus',5);
+(function(){const m={};D.forEach(d=>{const k=d.opprettet.slice(0,7);(m[k]=m[k]||{c:0,o:0})[isO(d)?'o':'c']++});
+ const ks=Object.keys(m).sort().slice(-12),mx=Math.max(...ks.map(k=>m[k].c+m[k].o)),W=640,H=230,L=34,B=26,T=18,ch=H-B-T,bw=28,step=mx>120?50:mx>60?20:10;let g='';
+ for(let v=0;v<=mx;v+=step){const y=T+ch-v/mx*ch;g+=`<line x1="${L}" x2="${W}" y1="${y}" y2="${y}" stroke="var(--line)"/><text x="${L-6}" y="${y+4}" text-anchor="end">${v}</text>`}
+ ks.forEach((k,i)=>{const x=L+(W-L)/ks.length*(i+.5)-bw/2,v=m[k],hc=v.c/mx*ch,ho=v.o/mx*ch;
+  g+=`<rect x="${x}" y="${T+ch-hc}" width="${bw}" height="${hc}" fill="var(--closed)"/>`;
+  if(v.o)g+=`<rect x="${x}" y="${T+ch-hc-ho}" width="${bw}" height="${ho}" fill="var(--open)"/>`;
+  g+=`<text x="${x+bw/2}" y="${T+ch-hc-ho-4}" text-anchor="middle">${v.c+v.o}</text><text x="${x+bw/2}" y="${H-8}" text-anchor="middle">${k.slice(5)}/${k.slice(2,4)}</text>`});
+ $('month').innerHTML=`<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid meet">${g}</svg>`})();
+const ol=open.slice().sort((a,b)=>a.opprettet.localeCompare(b.opprettet));const PER=10,pages=Math.max(1,Math.ceil(ol.length/PER));const hp=/#p=(\d+)/.exec(location.hash);let p=hp?+hp[1]-1:0;
+$('oc').textContent='· '+ol.length;
+function show(){const a=ol.slice(p*PER,p*PER+PER);
+ $('rows').innerHTML=a.map(d=>{const age=dd(d.opprettet,today),late=d.frist&&d.frist<today;return `<tr><td class="n">${esc(d.nr)}</td><td>${esc(d.tittel)}</td><td>${esc(d.firma)}</td><td>${esc(d.fokus)}</td><td>${d.risiko?`<span class="rk ${esc(d.risiko)}"></span>${esc(d.risiko)}`:''}</td><td class="a ${late?'late':''}">${age} d</td></tr>`}).join('');
+ $('pg').textContent=ol.length?(hp&&pages>1?`Viser de ${PER} eldste av ${ol.length} åpne saker`:`Side ${p+1} av ${pages}`):'Ingen åpne saker';p=(p+1)%pages}
+show();if(pages>1&&!hp)setInterval(show,8000);
+if(!hp&&!window.claude)setTimeout(()=>location.reload(),30*60*1000);
+</script>
