@@ -24,6 +24,6 @@ jobs:
         run: |
           git config user.name "RUH-oppdatering"
           git config user.email "actions@users.noreply.github.com"
-          git add LnsIpb4xfmjasr9s7ae5xugtLI2x4Kaj/index.html
+          git add -A
           git diff --cached --quiet || git commit -m "Oppdater RUH-tavle"
           git push
