@@ -6,6 +6,9 @@ on:
   workflow_dispatch:
 permissions:
   contents: write
+concurrency:
+  group: oppdater
+  cancel-in-progress: false
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -14,7 +17,7 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - name: Hent data fra Dalux og bygg tavlen
+      - name: Hent data fra Dalux og bygg sidene
         env:
           DALUX_API_KEY: ${{ secrets.DALUX_API_KEY }}
         run: |
@@ -25,6 +28,7 @@ jobs:
         run: |
           git config user.name "RUH-oppdatering"
           git config user.email "actions@users.noreply.github.com"
-          git add -A
+          git add LnsIpb4xfmjasr9s7ae5xugtLI2x4Kaj/index.html I34P4eh17y95xuDE5FtIT4IBUk0tV8JW/index.html
           git diff --cached --quiet || git commit -m "Oppdater RUH-tavle"
+          git pull --rebase
           git push
