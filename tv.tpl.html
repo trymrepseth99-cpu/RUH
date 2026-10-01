@@ -71,12 +71,17 @@ const isO=d=>d.status!=='closed',today=new Date().toISOString().slice(0,10);
 D.forEach(d=>{if(/^\d{6,}$|^S\d{10,}$/.test(d.firma))d.firma='Ukjent'});
 const open=D.filter(isO),closed=D.filter(d=>!isO(d)),fmt=n=>n.toLocaleString('nb-NO');
 const dd=(a,b)=>Math.round((new Date(b)-new Date(a))/864e5);
-const cd=closed.filter(d=>d.lukket).map(d=>dd(d.opprettet,d.lukket)).sort((a,b)=>a-b),med=cd.length?cd[Math.floor(cd.length/2)]:0;
+const cd=closed.filter(d=>d.lukket).map(d=>dd(d.opprettet,d.lukket)).sort((a,b)=>a-b),med=cd.length?cd[Math.floor(cd.length/2)]:0;const MN=['januar','februar','mars','april','mai','juni','juli','august','september','oktober','november','desember'];
+function monthStats(ym){const c=D.filter(d=>d.opprettet.slice(0,7)===ym),k=c.filter(d=>!isO(d)&&d.lukket),a=k.map(d=>dd(d.opprettet,d.lukket)).sort((x,y)=>x-y);return {n:c.length,k:k.length,avg:a.length?a.reduce((x,y)=>x+y,0)/a.length:0,med:a.length?a[Math.floor(a.length/2)]:0}}
+let ym=today.slice(0,7),ms=monthStats(ym);
+if(!ms.n){let y=+ym.slice(0,4),m=+ym.slice(5,7)-1;if(m<1){y--;m=12}ym=y+'-'+('0'+m).slice(-2);ms=monthStats(ym)}
+const mname=MN[+ym.slice(5,7)-1],avgS=ms.avg.toFixed(1).replace('.',','),pk=ms.n?Math.round(ms.k/ms.n*100):0;
+
 const pct=Math.round(closed.length/D.length*100),overdue=open.filter(d=>d.frist&&d.frist<today).length;
 $('kp').innerHTML=`<div class="k h"><div class="l">Åpne saker</div><div class="v">${open.length}</div><div class="s">${overdue?overdue+' med utløpt frist':'ingen med utløpt frist'}</div></div>
 <div class="k"><div class="l">Lukkede</div><div class="v">${fmt(closed.length)}</div><div class="s">${pct} % av alle</div></div>
 <div class="k"><div class="l">Totalt RUH</div><div class="v">${fmt(D.length)}</div><div class="s">siden juni 2025</div></div>
-<div class="k" style="grid-column:span 2"><div class="l">Median behandlingstid</div><div class="v">${med} døgn</div><div class="s">fra innmelding til lukking</div></div>`;
+<div class="k" style="grid-column:span 2"><div class="l">Gjennomsnittlig behandlingstid ${mname}</div><div class="v">${ms.k?avgS+" døgn":"–"}</div></div>`;
 $('split').innerHTML=`<div class="stack"><div class="c" style="width:${closed.length/D.length*100}%">${fmt(closed.length)} lukket</div><div class="o" style="width:${open.length/D.length*100}%">${open.length/D.length>.07?open.length+' åpen':''}</div></div>`;
 function grp(key,n){const m={};D.forEach(d=>{const k=d[key]||'Ikke oppgitt';(m[k]=m[k]||{c:0,o:0})[isO(d)?'o':'c']++});return Object.entries(m).sort((x,y)=>(y[1].c+y[1].o)-(x[1].c+x[1].o)).slice(0,n)}
 function bars(id,key,n){const a=grp(key,n),mx=Math.max(...a.map(x=>x[1].c+x[1].o));
@@ -98,3 +103,4 @@ function show(){const a=ol.slice(p*PER,p*PER+PER);
 show();if(pages>1&&!hp)setInterval(show,8000);
 if(!hp&&!window.claude)setTimeout(()=>location.reload(),30*60*1000);
 </script>
+
