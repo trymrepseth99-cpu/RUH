@@ -103,6 +103,12 @@ const open=D.filter(isO),closed=D.filter(d=>!isO(d));
 const days=d=>Math.round((new Date(d.lukket)-new Date(d.opprettet))/864e5);
 const cd=closed.filter(d=>d.lukket).map(days).sort((a,b)=>a-b);
 const med=cd.length?cd[Math.floor(cd.length/2)]:0;
+const MN=['januar','februar','mars','april','mai','juni','juli','august','september','oktober','november','desember'];
+function monthStats(ym){const c=D.filter(d=>d.opprettet.slice(0,7)===ym),k=c.filter(d=>!isO(d)&&d.lukket),a=k.map(d=>days(d)).sort((x,y)=>x-y);return {n:c.length,k:k.length,avg:a.length?a.reduce((x,y)=>x+y,0)/a.length:0,med:a.length?a[Math.floor(a.length/2)]:0}}
+let ym=today.slice(0,7),ms=monthStats(ym);
+if(!ms.n){let y=+ym.slice(0,4),m=+ym.slice(5,7)-1;if(m<1){y--;m=12}ym=y+'-'+('0'+m).slice(-2);ms=monthStats(ym)}
+const mname=MN[+ym.slice(5,7)-1],avgS=ms.avg.toFixed(1).replace('.',','),pk=ms.n?Math.round(ms.k/ms.n*100):0;
+
 const pct=Math.round(closed.length/D.length*100);
 const overdue=open.filter(d=>d.frist&&d.frist<today).length;
 const fmt=n=>n.toLocaleString('nb-NO');
@@ -111,7 +117,7 @@ $('kpis').innerHTML=[
  ['hero','Åpne saker',open.length,overdue?overdue+' med utløpt frist':'ingen med utløpt frist'],
  ['','Lukkede saker',fmt(closed.length),pct+' % av alle'],
  ['','Totalt antall RUH',fmt(D.length),'siden '+D.map(d=>d.opprettet).sort()[0]],
- ['','Median behandlingstid',med+' d','fra innmelding til lukking'],
+ ['','Gjennomsnittlig behandlingstid '+mname,ms.k?avgS+' d':'–',''],
  ['','Røde og gule',ry.length,ry.filter(isO).length+' fortsatt åpne']
 ].map(k=>`<div class="kpi ${k[0]}"><div class="l">${k[1]}</div><div class="v">${k[2]}</div><div class="s">${k[3]}</div></div>`).join('');
 const wide=open.length/D.length>.06;
@@ -141,3 +147,4 @@ function render(){const q=$('q').value.toLowerCase(),f=fs.value;
 $('q').oninput=()=>{lim=25;render()};fs.onchange=()=>{lim=25;render()};$('more').onclick=()=>{lim+=50;render()};
 render();
 </script>
+
