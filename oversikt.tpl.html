@@ -1,28 +1,26 @@
 <title>RUH-oversikt Campus Diakonhjemmet</title>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..125,400..800&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap">
 <style>
-/* Layout: AF-gul topplinje med logo, KPI-rad med åpne saker først, månedsforløp, fordelinger og saksliste */
-:root{--bg:#f4f4f2;--card:#fff;--fg:#2b2b2b;--mute:#6b6b68;--line:#dcdcd6;--af:#FFCD00;--afdark:#464646;--open:#FFCD00;--closed:#464646;--onc:#fff;--openx:#8a6a00;--closedbg:#e6e6e1;--closedtx:#464646;--track:#ececE6;--rule:#FFCD00;--font:'Archivo',system-ui,-apple-system,'Segoe UI',sans-serif}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#262626;--card:#303030;--fg:#efefea;--mute:#a8a8a0;--line:#454542;--open:#FFCD00;--closed:#9d9d96;--onc:#1f1f1e;--openx:#FFCD00;--closedbg:#3f3f3c;--closedtx:#dcdcd6;--track:#3f3f3c;color-scheme:dark}}
-:root[data-theme="dark"]{--bg:#262626;--card:#303030;--fg:#efefea;--mute:#a8a8a0;--line:#454542;--open:#FFCD00;--closed:#9d9d96;--onc:#1f1f1e;--openx:#FFCD00;--closedbg:#3f3f3c;--closedtx:#dcdcd6;--track:#3f3f3c;color-scheme:dark}
+/* Layout: AF-gul topplinje med logo, KPI-rad med åpne saker først, månedsforløp, fordelinger og saksliste. AF-profil: hvite flater, AF Grå tekst, AF Gul for åpne saker, Mellomgrå for lukkede. Flatt og kantete. */
+:root{--bg:#F2F2F2;--card:#FFFFFF;--fg:#444444;--mute:#444444;--line:#AEAEAE;--af:#FECB00;--afdark:#444444;--open:#FECB00;--closed:#AEAEAE;--onc:#444444;--openx:#444444;--closedbg:#F2F2F2;--closedtx:#444444;--track:#F2F2F2;--rule:#FECB00;--font:'Roboto',Arial,Helvetica,sans-serif}
 *{box-sizing:border-box}
 body{background:var(--bg);color:var(--fg);font-family:var(--font);font-size:14px;line-height:1.45}
-header{background:var(--af);color:#2b2b2b;border-bottom:6px solid var(--afdark)}
-.hin{max-width:1200px;margin:0 auto;padding:14px 16px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
-.hin img{width:52px;height:52px;display:block}
-.hin h1{margin:0;font-size:22px;font-weight:800;letter-spacing:-.01em;text-wrap:balance}
-.hin p{margin:0;font-size:13px;opacity:.8}
+header{background:var(--af);color:#444444}
+.hin{max-width:1200px;margin:0 auto;padding:24px 16px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.hin img{width:48px;height:48px;display:block}
+.hin h1{margin:0;font-size:22px;font-weight:700;text-wrap:balance}
+.hin p{margin:0;font-size:13px}
 .hin .stamp{margin-left:auto;font-size:12px;text-align:right}
 main{max-width:1200px;margin:0 auto;padding:20px 16px 48px;display:flex;flex-direction:column;gap:20px}
 .kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px}
-.kpi{background:var(--card);border:1px solid var(--line);border-top:4px solid var(--af);padding:14px 16px;min-width:0}
+.kpi{background:var(--card);border-top:4px solid var(--af);padding:14px 16px;min-width:0}
 .kpi.hero{background:var(--afdark);color:#fff;border-color:var(--afdark)}
 .kpi .l{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--mute);font-weight:600}
-.kpi.hero .l,.kpi.hero .s{color:#d8d8d2}
-.kpi .v{font-size:38px;font-weight:800;line-height:1.1;font-variant-numeric:tabular-nums}
+.kpi.hero .l,.kpi.hero .s{color:#FFFFFF}
+.kpi .v{font-size:38px;font-weight:700;line-height:1.1;font-variant-numeric:tabular-nums}
 .kpi .s{font-size:12px;color:var(--mute)}
 .kpi.hero .v{color:var(--af)}
-section{background:var(--card);border:1px solid var(--line);padding:16px;min-width:0}
+section{background:var(--card);padding:16px;min-width:0}
 h2::after{content:'';display:block;width:32px;height:4px;background:var(--af);margin-top:6px}
 h2{margin:0 0 14px;font-size:13px;letter-spacing:.08em;text-transform:uppercase;font-weight:700}
 h2 small{font-weight:400;letter-spacing:0;text-transform:none;color:var(--mute);margin-left:6px}
@@ -31,7 +29,7 @@ h2 small{font-weight:400;letter-spacing:0;text-transform:none;color:var(--mute);
 @media(max-width:820px){.split{grid-template-columns:1fr}}
 .stack{display:flex;height:34px;overflow:hidden;background:var(--track)}
 .stack div{display:flex;align-items:center;padding-left:10px;font-weight:700;font-size:13px;font-variant-numeric:tabular-nums;white-space:nowrap}
-.stack .c{background:var(--closed);color:var(--onc)}.stack .o{background:var(--open);color:#2b2b2b}
+.stack .c{background:var(--closed);color:var(--onc)}.stack .o{background:var(--open);color:#444444}
 .legend{display:flex;gap:16px;margin-top:8px;font-size:12px;color:var(--mute);flex-wrap:wrap}
 .legend i{display:inline-block;width:10px;height:10px;margin-right:6px}
 .bars{display:flex;flex-direction:column;gap:7px}
@@ -54,21 +52,21 @@ svg text{fill:var(--mute);font-family:var(--font);font-size:11px}
 .tools input{flex:1;min-width:160px}
 .tabs{display:flex}
 .tabs button{font:inherit;font-weight:600;padding:7px 14px;border:1px solid var(--line);background:var(--bg);color:var(--fg);cursor:pointer}
-.tabs button[aria-pressed="true"]{background:var(--af);color:#2b2b2b;border-color:var(--af)}
+.tabs button[aria-pressed="true"]{background:var(--af);color:#444444;border-color:var(--af)}
 button:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid var(--fg);outline-offset:2px}
 .tw{overflow-x:auto}
 table{border-collapse:collapse;width:100%;min-width:760px}
 th{background:var(--afdark);color:#fff;border-bottom:0;text-align:left;font-size:11px;letter-spacing:.06em;text-transform:uppercase;padding:8px;white-space:nowrap}
 td{padding:7px 8px;border-bottom:1px solid var(--line);vertical-align:top}
-td.num,td.dt{white-space:nowrap;font-variant-numeric:tabular-nums}
+td.num,td.dt,td.rkc{white-space:nowrap;font-variant-numeric:tabular-nums}
 .pill{display:inline-block;padding:1px 9px;font-size:12px;font-weight:700}
-.pill.o{background:var(--open);color:#2b2b2b}.pill.c{background:var(--closedbg);color:var(--closedtx)}
-.rk{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:6px}
-.rk.Green{background:#3f9d5b}.rk.Yellow{background:#e0b400}.rk.Red{background:#d92d20}
-.late{color:var(--openx);font-weight:700}
+.pill.o{background:var(--open);color:#444444}.pill.c{background:var(--closedbg);color:var(--closedtx)}
+.rk{display:inline-block;width:10px;height:10px;margin-right:6px}
+.rk.Green{background:#A5CF96}.rk.Yellow{background:#FECB00}.rk.Red{background:#FF9749}
+.late{background:#FF9749;color:#444444;font-weight:700;padding:0 6px}
 .more{margin-top:10px;font:inherit;padding:7px 14px;border:1px solid var(--line);background:var(--bg);color:var(--fg);cursor:pointer}
 .foot{color:var(--mute);font-size:12px;margin:8px 0 0}
-footer{background:var(--afdark);color:#d8d8d2;font-size:12px}
+footer{background:var(--afdark);color:#FFFFFF;font-size:12px}
 footer div{max-width:1200px;margin:0 auto;padding:14px 16px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
 footer b{color:var(--af)}
 </style>
@@ -141,10 +139,9 @@ fs.innerHTML='<option value="">Alle firma</option>'+grp('firma').map(x=>`<option
 function render(){const q=$('q').value.toLowerCase(),f=fs.value;
  const a=D.filter(d=>(mode==='all'||(mode==='open')===isO(d))&&(!f||d.firma===f)&&(!q||(d.nr+' '+d.tittel+' '+d.firma+' '+d.fokus).toLowerCase().includes(q)));
  a.sort((x,y)=>y.opprettet.localeCompare(x.opprettet));
- $('rows').innerHTML=a.slice(0,lim).map(d=>`<tr><td class="num"><b>${esc(d.nr)}</b></td><td>${esc(d.tittel)}</td><td><span class="pill ${isO(d)?'o':'c'}">${isO(d)?'Åpen':'Lukket'}</span></td><td>${esc(d.firma)}</td><td>${esc(d.fokus)}</td><td>${d.risiko?`<span class="rk ${esc(d.risiko)}"></span>${esc(d.risiko)}`:''}</td><td class="dt">${d.opprettet}</td><td class="dt ${isO(d)&&d.frist&&d.frist<today?'late':''}">${d.frist||''}</td></tr>`).join('');
+ $('rows').innerHTML=a.slice(0,lim).map(d=>`<tr><td class="num"><b>${esc(d.nr)}</b></td><td>${esc(d.tittel)}</td><td><span class="pill ${isO(d)?'o':'c'}">${isO(d)?'Åpen':'Lukket'}</span></td><td>${esc(d.firma)}</td><td>${esc(d.fokus)}</td><td class="rkc">${d.risiko?`<span class="rk ${esc(d.risiko)}"></span>${esc(d.risiko)}`:''}</td><td class="dt">${d.opprettet}</td><td class="dt">${isO(d)&&d.frist&&d.frist<today?'<span class="late">'+d.frist+'</span>':(d.frist||'')}</td></tr>`).join('');
  $('more').hidden=a.length<=lim;$('cnt').textContent=`Viser ${Math.min(lim,a.length)} av ${a.length} saker`}
 [['tOpen','open'],['tClosed','closed'],['tAll','all']].forEach(([id,m])=>$(id).onclick=()=>{mode=m;lim=25;['tOpen','tClosed','tAll'].forEach(i=>$(i).setAttribute('aria-pressed',i===id));render()});
 $('q').oninput=()=>{lim=25;render()};fs.onchange=()=>{lim=25;render()};$('more').onclick=()=>{lim+=50;render()};
 render();
 </script>
-
