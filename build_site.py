@@ -17,7 +17,7 @@ print("ok",len(t))
 FOLDER2="I34P4eh17y95xuDE5FtIT4IBUk0tV8JW"
 o=open("oversikt.tpl.html",encoding="utf-8").read()
 o=o.replace("<title>RUH-oversikt Campus Diakonhjemmet</title>",'<title>RUH-oversikt</title><meta name="robots" content="noindex,nofollow">',1)
-o=o.replace("__LOGO__",logo).replace("__DATA__",json.dumps(d,ensure_ascii=False,separators=(",",":"))).replace("__DATE__",datetime.date.today().strftime("%d.%m.%Y"))
+o=o.replace("__LOGO__",logo_tv).replace("__DATA__",json.dumps(d,ensure_ascii=False,separators=(",",":"))).replace("__DATE__",datetime.date.today().strftime("%d.%m.%Y"))
 os.makedirs(FOLDER2,exist_ok=True)
 open(FOLDER2+"/index.html","w",encoding="utf-8").write(o)
 print("oversikt ok",len(o))
