@@ -1,32 +1,33 @@
 <title>RUH-tavle Campus Diakonhjemmet</title>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..125,400..800&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap">
 <style>
-/* Layout: 16:9-tavle uten scroll. Venstre: nøkkeltall, åpen/lukket, månedsgraf. Høyre: åpne saker (roterer) og topp firma/fokus. Mørk AF-look med gult for åpne saker. */
-:root{--bg:#262626;--card:#303030;--fg:#f2f2ee;--mute:#b0b0a8;--line:#484845;--af:#FFCD00;--afdark:#464646;--open:#FFCD00;--closed:#9d9d96;--track:#3f3f3c;--warn:#ff8a4c;--font:'Archivo',system-ui,-apple-system,'Segoe UI',sans-serif;color-scheme:dark}
+/* Layout: 16:9-tavle uten scroll. Venstre: nøkkeltall, åpen/lukket, månedsgraf. Høyre: åpne saker (roterer) og topp firma/fokus. AF-profil: hvite flater, AF Grå tekst, AF Gul for åpne saker, Mellomgrå for lukkede. Flatt og kantete. */
+:root{--bg:#F2F2F2;--card:#FFFFFF;--fg:#444444;--mute:#444444;--line:#AEAEAE;--af:#FECB00;--afdark:#444444;--open:#FECB00;--closed:#AEAEAE;--track:#F2F2F2;--font:'Roboto',Arial,Helvetica,sans-serif}
 *{box-sizing:border-box}
 html{font-size:min(.8334vw,1.4815vh);height:100%}
 body{margin:0;height:100%;overflow:hidden;background:var(--bg);color:var(--fg);font-family:var(--font);font-size:1.15rem;line-height:1.3;display:flex;flex-direction:column}
-header{background:var(--af);color:#262626;border-bottom:.4rem solid var(--afdark);display:flex;align-items:center;gap:1.2rem;padding:.7rem 1.6rem;flex:none}
-header img{width:4rem;height:4rem;display:block}
-header h1{margin:0;font-size:2.2rem;font-weight:800;letter-spacing:-.01em}
-header p{margin:0;font-size:1.1rem;opacity:.8}
+header{background:var(--af);color:#444444;display:flex;align-items:center;gap:1.5rem;padding:1.5rem;flex:none}
+header img{width:3rem;height:3rem;display:block}
+header h1{margin:0;font-size:2.2rem;font-weight:700}
+header p{margin:0;font-size:1.1rem}
 header .st{margin-left:auto;text-align:right;font-size:1.1rem;font-variant-numeric:tabular-nums}
 header .st b{font-size:1.6rem;display:block}
 main{flex:1;min-height:0;display:grid;grid-template-columns:37fr 63fr;gap:1.2rem;padding:1.2rem 1.6rem}
 .col{display:flex;flex-direction:column;gap:1.2rem;min-height:0;min-width:0}
-.card{background:var(--card);border:1px solid var(--line);padding:1rem 1.2rem;min-width:0;min-height:0;display:flex;flex-direction:column}
+.card{background:var(--card);padding:1rem 1.2rem;min-width:0;min-height:0;display:flex;flex-direction:column}
 h2{margin:0 0 .8rem;font-size:1.05rem;letter-spacing:.1em;text-transform:uppercase;font-weight:700;color:var(--mute);flex:none}
-h2 b{color:var(--af)}
+h2 b{color:#444444}
 .kp{display:grid;grid-template-columns:1.25fr 1fr 1fr;gap:1.2rem;flex:none}
-.k{background:var(--card);border:1px solid var(--line);border-top:.35rem solid var(--af);padding:.8rem 1.2rem}
-.k.h{background:var(--afdark);grid-row:span 2;display:flex;flex-direction:column;justify-content:center}
+.k{background:var(--card);border-top:.35rem solid var(--af);padding:.8rem 1.2rem}
+.k.h{background:var(--afdark);color:#FFFFFF;grid-row:span 2;display:flex;flex-direction:column;justify-content:center}
 .k .l{font-size:1rem;letter-spacing:.09em;text-transform:uppercase;color:var(--mute);font-weight:600}
-.k .v{font-size:3.6rem;font-weight:800;line-height:1.05;font-variant-numeric:tabular-nums}
+.k .v{font-size:3.6rem;font-weight:700;line-height:1.05;font-variant-numeric:tabular-nums}
 .k.h .v{font-size:9rem;color:var(--af);line-height:1}
+.k.h .l,.k.h .s{color:#FFFFFF}
 .k .s{font-size:1.05rem;color:var(--mute)}
 .stack{display:flex;height:3rem;background:var(--track);overflow:hidden;flex:none}
 .stack div{display:flex;align-items:center;padding-left:1rem;font-weight:700;font-size:1.3rem;white-space:nowrap}
-.stack .c{background:var(--closed);color:#1f1f1e}.stack .o{background:var(--open);color:#262626}
+.stack .c{background:var(--closed);color:#444444}.stack .o{background:var(--open);color:#444444}
 .lg{display:flex;gap:1.6rem;margin-top:.6rem;color:var(--mute);font-size:1.05rem}
 .lg i{display:inline-block;width:.9rem;height:.9rem;margin-right:.5rem}
 .chart{flex:1;min-height:0;display:flex}
@@ -34,12 +35,12 @@ h2 b{color:var(--af)}
 svg text{fill:var(--mute);font-family:var(--font);font-size:12px}
 table{border-collapse:collapse;width:100%;table-layout:fixed}
 th{background:var(--afdark);color:#fff;text-align:left;font-size:1rem;letter-spacing:.07em;text-transform:uppercase;padding:.5rem .7rem;white-space:nowrap}
-td{padding:.55rem .7rem;border-bottom:1px solid var(--line);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:1.25rem}
-td.n{font-weight:800;color:var(--af)}
+td{padding:.55rem .7rem;border-bottom:1px solid #F2F2F2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:1.25rem}
+td.n{font-weight:700;color:#444444}
 td.a{font-variant-numeric:tabular-nums}
-.rk{display:inline-block;width:.9rem;height:.9rem;border-radius:50%;margin-right:.5rem}
-.rk.Green{background:#3f9d5b}.rk.Yellow{background:#e0b400}.rk.Red{background:#d92d20}
-.late{color:var(--warn);font-weight:700}
+.rk{display:inline-block;width:.9rem;height:.9rem;margin-right:.5rem}
+.rk.Green{background:#A5CF96}.rk.Yellow{background:#FECB00}.rk.Red{background:#FF9749}
+.late{background:#FF9749;color:#444444;font-weight:700;padding:0 .5rem}
 .pg{margin-top:auto;padding-top:.6rem;color:var(--mute);font-size:1rem;display:flex;justify-content:space-between;flex:none}
 .two{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;flex:1;min-height:0}
 .bars{display:flex;flex-direction:column;gap:.5rem;flex:1;min-height:0;justify-content:space-around}
@@ -48,7 +49,7 @@ td.a{font-variant-numeric:tabular-nums}
 .br .t{display:flex;height:1.1rem;background:var(--track)}
 .br .t .c{background:var(--closed)}.br .t .o{background:var(--open)}
 .br .x{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
-.br .x.tot{font-weight:700}.br .x.op{color:var(--af);font-weight:700}.br .x.z{color:var(--mute);font-weight:400}
+.br .x.tot{font-weight:700}.br .x.op{color:#444444;font-weight:700}.br .x.z{color:var(--mute);font-weight:400}
 </style>
 <header><img alt="AF Gruppen" src="__LOGO__"><div><h1>RUH-oversikt</h1><p>3047 Campus Diakonhjemmet · Rapport om uønsket hendelse</p></div><div class="st"><span>Oppdatert fra Dalux</span><b>__DATE__</b></div></header>
 <main>
@@ -95,12 +96,11 @@ bars('firma','firma',5);bars('fokus','fokus',5);
   if(v.o)g+=`<rect x="${x}" y="${T+ch-hc-ho}" width="${bw}" height="${ho}" fill="var(--open)"/>`;
   g+=`<text x="${x+bw/2}" y="${T+ch-hc-ho-4}" text-anchor="middle">${v.c+v.o}</text><text x="${x+bw/2}" y="${H-8}" text-anchor="middle">${k.slice(5)}/${k.slice(2,4)}</text>`});
  $('month').innerHTML=`<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid meet">${g}</svg>`})();
-const ol=open.slice().sort((a,b)=>a.opprettet.localeCompare(b.opprettet));const PER=10,pages=Math.max(1,Math.ceil(ol.length/PER));const hp=/#p=(\d+)/.exec(location.hash);let p=hp?+hp[1]-1:0;
+const ol=open.slice().sort((a,b)=>a.opprettet.localeCompare(b.opprettet));const PER=9,pages=Math.max(1,Math.ceil(ol.length/PER));const hp=/#p=(\d+)/.exec(location.hash);let p=hp?+hp[1]-1:0;
 $('oc').textContent='· '+ol.length;
 function show(){const a=ol.slice(p*PER,p*PER+PER);
- $('rows').innerHTML=a.map(d=>{const age=dd(d.opprettet,today),late=d.frist&&d.frist<today;return `<tr><td class="n">${esc(d.nr)}</td><td>${esc(d.tittel)}</td><td>${esc(d.firma)}</td><td>${esc(d.fokus)}</td><td>${d.risiko?`<span class="rk ${esc(d.risiko)}"></span>${esc(d.risiko)}`:''}</td><td class="a ${late?'late':''}">${age} d</td></tr>`}).join('');
+ $('rows').innerHTML=a.map(d=>{const age=dd(d.opprettet,today),late=d.frist&&d.frist<today;return `<tr><td class="n">${esc(d.nr)}</td><td>${esc(d.tittel)}</td><td>${esc(d.firma)}</td><td>${esc(d.fokus)}</td><td>${d.risiko?`<span class="rk ${esc(d.risiko)}"></span>${esc(d.risiko)}`:''}</td><td class="a">${late?'<span class="late">'+age+' d</span>':age+' d'}</td></tr>`}).join('');
  $('pg').textContent=ol.length?(hp&&pages>1?`Viser de ${PER} eldste av ${ol.length} åpne saker`:`Side ${p+1} av ${pages}`):'Ingen åpne saker';p=(p+1)%pages}
 show();if(pages>1&&!hp)setInterval(show,8000);
 if(!hp&&!window.claude)setTimeout(()=>location.reload(),30*60*1000);
 </script>
-
