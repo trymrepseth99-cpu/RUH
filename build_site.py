@@ -4,7 +4,6 @@ FOLDER="LnsIpb4xfmjasr9s7ae5xugtLI2x4Kaj"
 d=json.load(open("ruh.json",encoding="utf-8"))
 for x in d:
     x.pop("id",None);x.pop("wf",None)
-logo="data:image/png;base64,"+base64.b64encode(open("logo.png","rb").read()).decode()
 logo_tv="data:image/svg+xml;base64,"+base64.b64encode(open("logo-outlinet.svg","rb").read()).decode()
 t=open("tv.tpl.html",encoding="utf-8").read()
 t=t.replace("<title>RUH-tavle Campus Diakonhjemmet</title>",'<title>RUH-tavle</title><meta name="robots" content="noindex,nofollow">',1)
