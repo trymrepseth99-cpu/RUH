@@ -1,22 +1,38 @@
 name: Oppdater RUH-tavle
+
 on:
   schedule:
-    - cron: "0 4 * * 1-5"
-    - cron: "0 9 * * 1-5"
+    # Kjører kl. 07:24, 10:24, 12:24, 14:24 og 16:24 (Norsk vintertid)
+    # Ved å bruke minutt 24 slipper vi unna de verste serverkøene hos GitHub.
+    - cron: "24 6,9,11,13,15 * * 1-5"
   workflow_dispatch:
+
 permissions:
   contents: write
+
 concurrency:
   group: oppdater
   cancel-in-progress: false
+
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - name: Sjekk ut kildekoden
+        uses: actions/checkout@v4
+
+      - name: Sett opp Python
+        uses: actions/setup-python@v5
         with:
           python-version: "3.12"
+          cache: 'pip' # Sørger for raskere kjøring ved å huske pakker
+
+      - name: Installer avhengigheter
+        run: |
+          python -m pip install --upgrade pip
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+
+      # Henter dataene og bygger HTML-sidene dine i bakgrunnen
       - name: Hent data fra Dalux og bygg sidene
         env:
           DALUX_API_KEY: ${{ secrets.DALUX_API_KEY }}
@@ -24,11 +40,21 @@ jobs:
           python fetch2.py
           python agg.py
           python build_site.py
-      - name: Lagre endringer
+
+      # Sjekker om det faktisk er nye data før den lagrer, slik at siden ikke krasjer
+      - name: Lagre og publiser oppdateringer
         run: |
           git config user.name "RUH-oppdatering"
           git config user.email "actions@users.noreply.github.com"
-          git add LnsIpb4xfmjasr9s7ae5xugtLI2x4Kaj/index.html I34P4eh17y95xuDE5FtIT4IBUk0tV8JW/index.html
-          git diff --cached --quiet || git commit -m "Oppdater RUH-tavle"
-          git pull --rebase
-          git push
+          
+          # Legg til indeksfilene dine
+          git add LnsIpb4xfmjasr9s7ae5xugtLI2x4Kaj/index.html I34P4eh17y95xuDE5FtIT4IBUk0tv8JW/index.html
+          
+          # Sjekk om det er endringer. Hvis ja, lagre og push til GitHub Pages.
+          if ! git diff --cached --quiet; then
+            git commit -m "Automatisk oppdatering av RUH-tavle [skip ci]"
+            git pull --rebase origin main
+            git push origin main
+          else
+            echo "Ingen nye endringer i RUH-dataene denne gangen."
+          fi
